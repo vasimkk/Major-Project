@@ -8,10 +8,10 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import {ThemeProvider} from "styled-components";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Welcome from './components/Welcome';
 import { useAuth0 } from "@auth0/auth0-react";
 import EasySell from './EasySell';
 import EasyBuy from './EasyBuy';
+
 function App() {
 
 
@@ -50,6 +50,7 @@ function App() {
       <Route path='/contact' element ={<Contact/>}/>
       <Route path='/easysell' element={<EasySell/>}/>
       <Route path='/easybuy' element={<EasyBuy/>}/>
+      
      </Routes>
     <Footer/> 
     </BrowserRouter>
@@ -57,3 +58,6 @@ function App() {
     );
 }
 export default App;
+
+
+

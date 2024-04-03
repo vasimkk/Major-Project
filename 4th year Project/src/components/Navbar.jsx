@@ -6,7 +6,6 @@ import '../components/Navbar.css'
 const Navbar = () => {
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   const [expanded, setExpanded] = useState(false);
-
   const closeNavbar = () => setExpanded(false);
 
   return (
@@ -41,8 +40,7 @@ const Navbar = () => {
             <NavLink className="nav-link" to='/easysell' onClick={closeNavbar}
             >EasySell</NavLink>
           )
-          }
-        
+          } 
         </Nav>
         <Nav className="m">
           {isAuthenticated ? (

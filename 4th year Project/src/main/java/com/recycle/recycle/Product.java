@@ -1,20 +1,33 @@
 package com.recycle.recycle;
+import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 @Entity
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "product_name")
     private String productName;
+
+    private String description;
     private int quantity;
     private double price;
-    private String brand;
-    private String address;
+    private String sellerName;
+    private String sellerEmail;
+    private String shippingAddress;
 
- // Getters and Setters
+    @ElementCollection
+    private List<String> images;
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -29,6 +42,14 @@ public class Product {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getQuantity() {
@@ -47,32 +68,35 @@ public class Product {
         this.price = price;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getSellerName() {
+        return sellerName;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getSellerEmail() {
+        return sellerEmail;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setSellerEmail(String sellerEmail) {
+        this.sellerEmail = sellerEmail;
     }
 
-    // toString method
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", productName='" + productName + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", brand='" + brand + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }
