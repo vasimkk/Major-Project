@@ -4,8 +4,9 @@ import { Card, Button, Row, Col, Container, Form } from 'react-bootstrap';
 
 function AllProducts() {
   const [products, setProducts] = useState([]);
-  const [userName, setUserName] = useState('');
-  const [userAddress, setUserAddress] = useState('');
+
+  // State to store name and address for each product
+  const [productDetails, setProductDetails] = useState({});
 
   useEffect(() => {
     fetchAllProducts();
@@ -21,6 +22,8 @@ function AllProducts() {
   };
 
   const handleBuyClick = async (productId) => {
+    const { userName, userAddress } = productDetails[productId] || {};
+
     // Validate user input (name and address)
     if (!userName || !userAddress) {
       alert('Please enter your name and address.');
@@ -37,11 +40,21 @@ function AllProducts() {
 
       // Handle successful purchase (e.g., display success message)
       console.log('Purchase successful:', response.data);
-      alert("BuySuccifully")
+      alert("BuySuccifully");
     } catch (error) {
       console.error('Error purchasing product:', error);
       // Handle error (e.g., display error message)
     }
+  };
+
+  const handleInputChange = (productId, fieldName, value) => {
+    setProductDetails(prevState => ({
+      ...prevState,
+      [productId]: {
+        ...prevState[productId],
+        [fieldName]: value
+      }
+    }));
   };
 
   return (
@@ -64,23 +77,24 @@ function AllProducts() {
                     <br />
                     Description: {product.description}
                   </Card.Text>
-                  <Form.Group controlId="formUserName">
+                  <Form.Group controlId={`formUserName${product.id}`}>
                     <Form.Control
                       type="text"
                       placeholder="Enter your name"
-                      value={userName}
-                      onChange={(e) => setUserName(e.target.value)}
+                      value={productDetails[product.id]?.userName || ''}
+                      onChange={(e) => handleInputChange(product.id, 'userName', e.target.value)}
                     />
                     <br></br>
                   </Form.Group>
-                  <Form.Group controlId="formUserAddress">
+                  <Form.Group controlId={`formUserAddress${product.id}`}>
                     <Form.Control
                       type="text"
                       placeholder="Enter your address"
-                      value={userAddress}
-                      onChange={(e) => setUserAddress(e.target.value)}
+                      value={productDetails[product.id]?.userAddress || ''}
+                      onChange={(e) => handleInputChange(product.id, 'userAddress', e.target.value)}
                     />
                   </Form.Group>
+                  <br></br>
                   <Button variant="primary" onClick={() => handleBuyClick(product.id)}>Buy</Button>
                 </Card.Body>
               </Card>

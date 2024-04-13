@@ -11,7 +11,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAuth0 } from "@auth0/auth0-react";
 import EasySell from './EasySell';
 import EasyBuy from './EasyBuy';
-
 function App() {
  const theme = {
     colors: {
