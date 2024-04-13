@@ -1,55 +1,95 @@
-import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Card, Button, Row, Col, Container, Form } from 'react-bootstrap';
 
-const products = [
-  {
-    id: 1,
-    name: 'Product 1',
-    image: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
-    price: 10.99,
-    brand: 'Brand A',
-    size: 'Large',
-    condition: 'New'
-  },
-  {
-    id: 2,
-    name: 'Product 2',
-    image: 'https://via.placeholder.com/150',
-    price: 20.99,
-    brand: 'Brand B',
-    size: 'Medium',
-    condition: 'Used'
-  },
-  // Add more products here...
-];
+function AllProducts() {
+  const [products, setProducts] = useState([]);
+  const [userName, setUserName] = useState('');
+  const [userAddress, setUserAddress] = useState('');
 
-const ProductList = () => {
+  useEffect(() => {
+    fetchAllProducts();
+  }, []);
+
+  const fetchAllProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:2006/Allsproduct');
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  const handleBuyClick = async (productId) => {
+    // Validate user input (name and address)
+    if (!userName || !userAddress) {
+      alert('Please enter your name and address.');
+      return;
+    }
+
+    try {
+      // Send user name, address, and product ID to the backend
+      const response = await axios.post('http://localhost:2006/purchase', {
+        productId,
+        userName,
+        userAddress
+      });
+
+      // Handle successful purchase (e.g., display success message)
+      console.log('Purchase successful:', response.data);
+      alert("BuySuccifully")
+    } catch (error) {
+      console.error('Error purchasing product:', error);
+      // Handle error (e.g., display error message)
+    }
+  };
+
   return (
-    
-      <div className="container">
-        <h2 className="mt-4 mb-4">Product List</h2>
-        <div className="row">
+    <section className="bg-light">
+      <Container className="text-center">
+        <h2>Buy Any Product According To Our Need</h2>
+        <br></br>
+        <hr></hr>
+        <Row xs={1} md={3} className="g-4">
           {products.map(product => (
-            <div key={product.id} className="col-md-4 mb-4">
-              <Card>
-                <Card.Img variant="top" src={product.image} alt={product.name} />
-                <Card.Body>
+            <Col key={product.id}>
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={product.imageURL} style={{ height: '250px', objectFit: 'cover' }} />
+                <Card.Body style={{ height: '200px', overflowY: 'auto' }}>
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Text>
-                    <strong>Price:</strong> ${product.price}<br />
-                    <strong>Brand:</strong> {product.brand}<br />
-                    <strong>Size:</strong> {product.size}<br />
-                    <strong>Condition:</strong> {product.condition}
+                    Price: {product.price}
+                    <br />
+                    Brand: {product.brand}
+                    <br />
+                    Description: {product.description}
                   </Card.Text>
-                  <Button variant="primary">Buy Now</Button>
+                  <Form.Group controlId="formUserName">
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter your name"
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                    />
+                    <br></br>
+                  </Form.Group>
+                  <Form.Group controlId="formUserAddress">
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter your address"
+                      value={userAddress}
+                      onChange={(e) => setUserAddress(e.target.value)}
+                    />
+                  </Form.Group>
+                  <Button variant="primary" onClick={() => handleBuyClick(product.id)}>Buy</Button>
                 </Card.Body>
               </Card>
-            </div>
+            </Col>
           ))}
-        </div>
-      </div>
-    
+        </Row>
+      </Container>
+    </section>
   );
-};
+}
 
-export default ProductList;
+export default AllProducts;

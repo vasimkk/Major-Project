@@ -13,9 +13,7 @@ import EasySell from './EasySell';
 import EasyBuy from './EasyBuy';
 
 function App() {
-
-
-  const theme = {
+ const theme = {
     colors: {
       heading: "rgb(24 24 29)",
       text: "rgb(24 24 29)",
@@ -34,12 +32,8 @@ function App() {
       shadowSupport: " rgba(0, 0, 0, 0.16) 0px 1px 4px",
     }
   }
-  
-  
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
-
-
-  return (
+ return (
     <ThemeProvider theme={theme}>
     <BrowserRouter>
     <Header/>
@@ -50,8 +44,7 @@ function App() {
       <Route path='/contact' element ={<Contact/>}/>
       <Route path='/easysell' element={<EasySell/>}/>
       <Route path='/easybuy' element={<EasyBuy/>}/>
-      
-     </Routes>
+      </Routes>
     <Footer/> 
     </BrowserRouter>
     </ThemeProvider>

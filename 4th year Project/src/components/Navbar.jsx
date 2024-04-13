@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Navbar as RBNavbar, Nav, NavDropdown, Button } from "react-bootstrap";
+import { Navbar as RBNavbar, Nav, NavDropdown, Button, Image } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import '../components/Navbar.css'
+import '../components/Navbar.css';
+
 const Navbar = () => {
   const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   const [expanded, setExpanded] = useState(false);
@@ -30,25 +31,29 @@ const Navbar = () => {
            <NavLink className="nav-link" to="/easybuy" onClick={closeNavbar}>
               EasyBuy
             </NavLink>
-          )
-          }
+          )}
           {!isAuthenticated ? (
             <NavLink className="nav-link" to="/contact" onClick={closeNavbar}>
               Contact
             </NavLink>
           ):(
-            <NavLink className="nav-link" to='/easysell' onClick={closeNavbar}
-            >EasySell</NavLink>
-          )
-          } 
+            <NavLink className="nav-link" to='/easysell' onClick={closeNavbar}>
+              EasySell
+            </NavLink>
+          )} 
         </Nav>
         <Nav className="m">
           {isAuthenticated ? (
             <NavDropdown title={user.name} id="basic-nav-dropdown">
-              <NavDropdown.Item onClick={() => { logout({ returnTo: window.location.origin }); closeNavbar(); }}>
-                Logout
+              {user.picture && (
+                <NavDropdown.Item>
+               <Image src={user.picture} alt="User" width={30} height={30} roundedCircle />
+                </NavDropdown.Item>
+              )}
+            <NavDropdown.Item onClick={() => { logout({ returnTo: window.location.origin }); closeNavbar(); }}>
+                <Button variant="outline-primary">Logout</Button>
               </NavDropdown.Item>
-            </NavDropdown>
+          </NavDropdown>
           ) : (
             <Button variant="outline-primary" onClick={() => { loginWithRedirect(); closeNavbar(); }}>
               Login
@@ -56,8 +61,8 @@ const Navbar = () => {
           )}
         </Nav>
       </RBNavbar.Collapse>
-      {expanded && ( // Render the close button only when Navbar is expanded
-        <Button variant="link" onClick={closeNavbar} className="ml-auto mr-3">
+      {expanded && (
+        <Button variant="outline-primary" onClick={closeNavbar} className="ml-auto mr-3">
           Close
         </Button>
       )}
@@ -66,3 +71,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

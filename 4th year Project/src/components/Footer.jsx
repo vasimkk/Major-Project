@@ -8,7 +8,7 @@ const Footer = () => {
           <Row>
             <Col md={6}>
               <h5>About Us</h5>
-              <p>Your company description goes here.</p>
+              <p>Welcome to our second-hand marketplace!</p>
             </Col>
             <Col md={3}>
               <h5>Links</h5>
