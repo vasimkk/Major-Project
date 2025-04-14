@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-RecycleApplication<recycle>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.recycle.recycle.RecycleApplication",
+            "projectName": "recycle",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
