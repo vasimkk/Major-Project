@@ -60,7 +60,7 @@ function AllProducts() {
   return (
     <section className="bg-light">
       <Container className="text-center">
-        <h2>Buy Any Product According To Our Need</h2>
+        <h2>Buy Any Product According To Your Need</h2>
         <br></br>
         <hr></hr>
         <Row xs={1} md={3} className="g-4">

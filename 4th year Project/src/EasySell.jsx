@@ -83,34 +83,42 @@ const ProductForm = () => {
               <Form.Label>Product Name</Form.Label>
               <Form.Control type="text" placeholder="Enter product name" name="productName" value={formData.productName} onChange={handleChange} />
             </Form.Group>
+            <br></br>
             <Form.Group controlId="description">
               <Form.Label>Description</Form.Label>
               <Form.Control as="textarea" rows={3} placeholder="Enter description" name="description" value={formData.description} onChange={handleChange} />
             </Form.Group>
+            <br></br>
             <Form.Group controlId="quantity">
               <Form.Label>Quantity</Form.Label>
               <Form.Control type="number" placeholder="Enter quantity" name="quantity" value={formData.quantity} onChange={handleChange} />
             </Form.Group>
+            <br></br>
             <Form.Group controlId="price">
               <Form.Label>Price</Form.Label>
               <Form.Control type="number" placeholder="Enter price" name="price" value={formData.price} onChange={handleChange} />
             </Form.Group>
+            <br></br>
             <Form.Group controlId="images">
               <Form.Label>Images</Form.Label>
               <Form.Control type="file" multiple name="images" onChange={handleImageChange} />
             </Form.Group>
+            <br></br>
             <Form.Group controlId="sellerName">
               <Form.Label>Seller Name</Form.Label>
               <Form.Control type="text" placeholder="Enter seller name" name="sellerName" value={formData.sellerName} onChange={handleChange} />
             </Form.Group>
+            <br></br>
             <Form.Group controlId="sellerEmail">
               <Form.Label>Seller Email</Form.Label>
               <Form.Control type="email" placeholder="Enter seller email" name="sellerEmail" value={formData.sellerEmail} onChange={handleChange} />
             </Form.Group>
+            <br></br>
             <Form.Group controlId="shippingAddress">
               <Form.Label>Shipping Address</Form.Label>
               <Form.Control type="text" placeholder="Enter shipping address" name="shippingAddress" value={formData.shippingAddress} onChange={handleChange} />
             </Form.Group>
+            <br></br>
             <Button variant="primary" type="submit">Submit</Button>
           </Form>
         </Col>

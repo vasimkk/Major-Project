@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 const Footer = () => {
@@ -35,4 +35,71 @@ const Footer = () => {
   };
   
   export default Footer;
-  
+  */
+  // Footer.js
+import React, { useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const Footer = () => {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.async = true;
+    document.body.appendChild(script);
+
+    window.googleTranslateElementInit = () => {
+      new window.google.translate.TranslateElement({
+        pageLanguage: 'en',
+        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+        autoDisplay: false,
+        includedLanguages: 'fr,hi,ur',
+        gaTrack: true,
+        gaId: 'YOUR_GA_ID' // Replace with your Google Analytics ID
+      }, 'google_translate_element');
+    };
+
+    return () => {
+      // Clean up
+      document.body.removeChild(script);
+      delete window.googleTranslateElementInit;
+    };
+  }, []);
+
+  return (
+    <footer className="bg-dark text-light py-4">
+      <Container>
+        <Row>
+          <Col md={6}>
+            <h5>About Us</h5>
+            <p>Welcome to our second-hand marketplace!</p>
+          </Col>
+          <Col md={3}>
+            <h5>Links</h5>
+            <ul className="list-unstyled">
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </Col>
+          <Col md={3}>
+            <h5>Contact Us</h5>
+            <p>Email: Kkvasim417gmail.com</p>
+            <p>Phone: 9630179288</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="text-center">
+            <p>&copy; 2024 Our Company. All rights reserved.</p>
+          </Col>
+        </Row>
+      </Container>
+      {/* Google Translate widget container */}
+      <div id="google_translate_element" style={{ paddingLeft: '40px', paddingTop: '8px' }}>
+        Select A Language
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

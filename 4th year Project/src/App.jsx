@@ -1,4 +1,4 @@
-import React from 'react'
+/*import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Home'
 import About from './About'
@@ -50,6 +50,53 @@ function App() {
     );
 }
 export default App;
+*/
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // Import useTranslation hook
+import Home from './Home';
+import About from './About';
+import Services from './Services';
+import Contact from './Contact';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { ThemeProvider } from 'styled-components';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useAuth0 } from '@auth0/auth0-react';
+import EasySell from './EasySell';
+import EasyBuy from './EasyBuy';
 
+function App() {
+    const theme = {
+        // Your theme object...
+    };
+
+    const { t, i18n } = useTranslation(); // Initialize useTranslation hook
+
+    const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
+
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    };
+
+    return (
+        <ThemeProvider theme={theme}>
+            <BrowserRouter>
+                <Header changeLanguage={changeLanguage} /> {/* Pass changeLanguage function to Header */}
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/easysell" element={<EasySell />} />
+                    <Route path="/easybuy" element={<EasyBuy />} />
+                </Routes>
+                <Footer changeLanguage={changeLanguage} /> {/* Pass changeLanguage function to Footer */}
+            </BrowserRouter>
+        </ThemeProvider>
+    );
+}
+
+export default App;
 
 
